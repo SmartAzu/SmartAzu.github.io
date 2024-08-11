@@ -1,0 +1,754 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Azu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="WinGet概述以下资料来源于微软社区：https:&#x2F;&#x2F;learn.microsoft.com&#x2F;zh-cn&#x2F;windows&#x2F;package-manager&#x2F; 什么是WinGet？Windows软件包管理器 (WinGet) 是一个工具，帮助用户在Windows系统上发现和安装软件包。项目包括命令行界面 (CLI)、PowerShell模块和组件对象模型 (COM) API。客户端可以访问来自Mic">
+<meta property="og:type" content="article">
+<meta property="og:title" content="winget工具概述">
+<meta property="og:url" content="http://example.com/2024/08/11/winget%E5%B7%A5%E5%85%B7%E6%A6%82%E8%BF%B0/index.html">
+<meta property="og:site_name" content="Azu blog">
+<meta property="og:description" content="WinGet概述以下资料来源于微软社区：https:&#x2F;&#x2F;learn.microsoft.com&#x2F;zh-cn&#x2F;windows&#x2F;package-manager&#x2F; 什么是WinGet？Windows软件包管理器 (WinGet) 是一个工具，帮助用户在Windows系统上发现和安装软件包。项目包括命令行界面 (CLI)、PowerShell模块和组件对象模型 (COM) API。客户端可以访问来自Mic">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/.com//1.png">
+<meta property="article:published_time" content="2024-08-11T05:12:57.000Z">
+<meta property="article:modified_time" content="2024-08-11T05:31:15.948Z">
+<meta property="article:author" content="Azu">
+<meta property="article:tag" content="windows">
+<meta property="article:tag" content="winget">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/.com//1.png">
+  
+  
+  
+  <title>winget工具概述 - Azu blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"enable","follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"H5pOaZNNUNx7NG9Qlt8wmVwk-gzGzoHsz","app_key":"qJ9vNqoAmOj5dAwXE3hofC29","server_url":"https://h5poaznn.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Azu&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="winget工具概述"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-08-11 13:12" pubdate>
+          2024年8月11日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          总阅读量 <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">winget工具概述</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="WinGet概述"><a href="#WinGet概述" class="headerlink" title="WinGet概述"></a>WinGet概述</h1><p>以下资料来源于微软社区：<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/package-manager/">https://learn.microsoft.com/zh-cn/windows/package-manager/</a></p>
+<h2 id="什么是WinGet？"><a href="#什么是WinGet？" class="headerlink" title="什么是WinGet？"></a>什么是WinGet？</h2><p>Windows软件包管理器 (WinGet) 是一个工具，帮助用户在Windows系统上发现和安装软件包。项目包括命令行界面 (CLI)、PowerShell模块和组件对象模型 (COM) API。客户端可以访问来自Microsoft Store和WinGet社区库的包,同时支持自建软件源访问。</p>
+<h2 id="什么系统支持使用WinGet？"><a href="#什么系统支持使用WinGet？" class="headerlink" title="什么系统支持使用WinGet？"></a>什么系统支持使用WinGet？</h2><p>Windows 10（1809）以后的版本，会自动安装WinGet工具。在此之前的windows系统需要手动安装，在微软商店。<br>windows 10 （1709）以后都支持使用，但是有一个前提条件，必须更新微软商店，原因是windows11采取了新的微软商店并强制要求所有商店更新至该版本否则不能使用。由于是新系统下的商店，很多依赖项在win10上是没有的，需要手动去安装，具体参考文章windows 10下安装winget。<br>最低支持版本：<br>winget 命令行工具仅在 Windows 10 1709（版本 16299）或更高版本上受支持。 在你首次以用户身份登录 Windows（这会触发 Microsoft Store 将 Windows 程序包管理器注册为异步进程的一部分）之前，winget 工具不可用。 如果最近已经以用户身份进行了首次登录，但发现 winget 尚不可用，则可以打开 PowerShell 并输入以下命令来请求此 winget 注册：Add-AppxPackage -RegisterByFamilyName -MainPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe。</p>
+<h2 id="WinGet支持哪些安装程序？"><a href="#WinGet支持哪些安装程序？" class="headerlink" title="WinGet支持哪些安装程序？"></a>WinGet支持哪些安装程序？</h2><p>● EXE（具有 Silent 和 SilentWithProgress 标志）<br>● ZIP<br>● INNO<br>● NULLSOFT<br>● MSI<br>● WIX<br>● APPX<br>● MSIX<br>● BURN<br>● PORTABLE</p>
+<h2 id="WinGet的下载"><a href="#WinGet的下载" class="headerlink" title="WinGet的下载"></a>WinGet的下载</h2><p>这里提供一个稳定版本1.8.1522<br>github地址:<a target="_blank" rel="noopener" href="https://github.com/microsoft/winget-cli/releases">https://github.com/microsoft/winget-cli/releases</a></p>
+<h2 id="WinGet应用场景"><a href="#WinGet应用场景" class="headerlink" title="WinGet应用场景"></a>WinGet应用场景</h2><p><img src="/.com//1.png" srcset="/img/loading.gif" lazyload alt="图片未加载"></p>
+<p>通过以上方法，提升了网络整体安全性，避免了终端用户从不安全网站下载非法应用所带来的内网安全隐患。同时，通过使用批处理脚本实现批量安装应用程序，减少了重复工作，提高了工作效率。<br>WinGet软件源的搭建<br>准备工作，创建软件清单<br>这里用wingetcreate来实现软件清单创建<br>通过winget命令install wingetcreate（建议连接vpn，这里可能因为网络因素安装失败）<br>寻找需要的软件包，获取其下载链接。<br>通过wingetcreate new install url，来获取清单。<br>可以通过 wingetcreate.exe update –urls 来更新清单。<br>github地址：<a target="_blank" rel="noopener" href="https://github.com/jantari/rewinged">https://github.com/jantari/rewinged</a><br>搭建nginx服务器<br>由于winget要求软件源必须使用HTTPS，所以需要通过nginx的反向代理来实现访问。</p>
+<h2 id="搭建Rewinged"><a href="#搭建Rewinged" class="headerlink" title="搭建Rewinged"></a>搭建Rewinged</h2><p>Rewinged 是一个自托管的 winget 包源工具，可以运行在 Linux、Windows、Docker 或云环境中。它通过读取目录中的包清单，并通过 REST API 使这些包可以被 winget 客户端搜索和访问。这使得用户可以创建和管理自己的私有 winget 包源，而无需依赖于云服务，winget 要求 REST 源使用 HTTPS - 不允许明文 HTTP。<br>github地址：<a target="_blank" rel="noopener" href="https://github.com/jantari/rewinged">https://github.com/jantari/rewinged</a><br>封装好的程序包地址：<a target="_blank" rel="noopener" href="https://github.com/jantari/rewinged/releases">https://github.com/jantari/rewinged/releases</a></p>
+<ol>
+<li>将wingetcreate创建的清单移至服务器，Rewinged 对应目录下（wingetcreate及winget仅可在Windows运行，若操作系统为其他则需要手动填写清单，或将wingetcreate创建的清单移到对应文件夹中）</li>
+<li>通过参数configFile可以将所有参数写成一个json来执行</li>
+<li>命令行执行，运行Rewinged并在后台运行，在rg目录下会有一个日志文件生成<br>nohup .&#x2F;rewinged -configFile &#x2F;rg&#x2F;rewinged.json<br>以下是一个基础的配置文件<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;autoInternalize&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;autoInternalizePath&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;/rg/installers&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;autoInternalizeSkip&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;https&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;httpsCertificateFile&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;/rg/ssl/qunhequnhe.com.crt&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;httpsPrivateKeyFile&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;/rg/ssl/qunhequnhe.com.key&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;listen&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;localhost:3000&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;logLevel&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;info&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;manifestPath&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;/rg/manifests&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+这里要讲一个参数的功能，-autoInternalize开启自动内化，启用后会将软件清单内的下载URL自动下载到本地指定文件夹，从而实现在不连接外网仅连接内网的情况下安装软件。第一次启用该功能会有一个下载软件的过程，在此过程中直接下载则会显示哈希认证不完整，必须等软件包被完整下载才可以正常使用。(从下载url到指定文件夹的这个过程可能会失败，每个软件都需要下载测试一下)<br>这里说一下如果安装包hash校验不通过或者下载不完整怎么处理。<br>首先下载一个完整的安装包，将exe后缀去除使其变为文件，随后打开cmd页面输入命令“winget hash 文件路径”生成文件的哈希值。<br>随后找到rewinged目录下，修改对应软件目录下的installer文件</li>
+</ol>
+<p>替换yaml文件内的哈希值为你下载的软件包哈希</p>
+<p>随后到installers目录下，删除原先的软件包，将新下载的软件名称修改为哈希值（通过哈希值为索引），重启rewinged工具，完成替换。<br>扩展参数<br>这些命令行配置是用于配置和运行 <code>rewinged</code> 应用程序的参数。下面是每个参数的详细解释：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs markdown">-autoInternalize<br><span class="hljs-bullet">   -</span> 作用：开启自动内部化功能。<br><span class="hljs-bullet">   -</span> 说明：启用此功能后，应用程序会自动将一些内容进行内部处理。<br><br>-autoInternalizePath string<br><span class="hljs-bullet">   -</span> 作用：指定自动内部化安装程序存储的目录。<br><span class="hljs-bullet">   -</span> 默认值：<span class="hljs-code">`&quot;./installers&quot;`</span><br><span class="hljs-bullet">   -</span> 说明：自动内部化的安装程序将被存储在这个指定的目录中。<br><br>-autoInternalizeSkip string<br><span class="hljs-bullet">   -</span> 作用：指定排除在自动内部化之外的主机名列表。<br><span class="hljs-bullet">   -</span> 说明：可以用逗号或空格分隔多个主机名，这些主机将不进行自动内部化处理。<br><br>-configFile string<br><span class="hljs-bullet">   -</span> 作用：指定一个 JSON 配置文件的路径。<br><span class="hljs-bullet">   -</span> 说明：这个文件是可选的，可以用来提供额外的配置选项。<br><br>-https<br><span class="hljs-bullet">   -</span> 作用：直接从 <span class="hljs-code">`rewinged`</span> 应用程序提供加密的 HTTPS 流量，而无需代理。<br><span class="hljs-bullet">   -</span> 说明：启用此选项后，应用程序将使用 HTTPS 协议。<br><br>-httpsCertificateFile string<br><span class="hljs-bullet">   -</span> 作用：指定 HTTPS 启用时使用的 Web 服务器证书文件。<br><span class="hljs-bullet">   -</span> 默认值：<span class="hljs-code">`&quot;./cert.pem&quot;`</span><br><span class="hljs-bullet">   -</span> 说明：这是应用程序在启用 HTTPS 时使用的证书文件路径。<br><br>-httpsPrivateKeyFile string<br><span class="hljs-bullet">   -</span> 作用：指定 HTTPS 启用时使用的私钥文件。<br><span class="hljs-bullet">   -</span> 默认值：<span class="hljs-code">`&quot;./private.key&quot;`</span><br><span class="hljs-bullet">   -</span> <span class="hljs-strong">**说明**</span>：这是应用程序在启用 HTTPS 时使用的私钥文件路径。<br><br>-listen string<br><span class="hljs-bullet">   -</span> 作用：指定 REST API 监听的地址和端口。<br><span class="hljs-bullet">   -</span> 默认值：<span class="hljs-code">`&quot;localhost:8080&quot;`</span><br><span class="hljs-bullet">   -</span> 说明：应用程序的 REST API 将在这个地址和端口上进行监听。<br><br>-logLevel string<br><span class="hljs-bullet">   -</span> 作用：设置日志的详细程度。<br><span class="hljs-bullet">   -</span> 默认值：<span class="hljs-code">`&quot;info&quot;`</span><br><span class="hljs-bullet">   -</span> 可选值：<span class="hljs-code">`disable`</span>, <span class="hljs-code">`error`</span>, <span class="hljs-code">`warn`</span>, <span class="hljs-code">`info`</span>, <span class="hljs-code">`debug`</span>, <span class="hljs-code">`trace`</span><br><span class="hljs-bullet">   -</span> 说明：用于控制应用程序的日志输出详细程度。<br><br>-manifestPath string<br><span class="hljs-bullet">    -</span> 作用：指定搜索包清单文件的目录。<br><span class="hljs-bullet">    -</span> 默认值：<span class="hljs-code">`&quot;./packages&quot;`</span><br><span class="hljs-bullet">    -</span> 说明：应用程序将在这个目录中搜索包清单文件。<br><br>-version<br><span class="hljs-bullet">    -</span> 作用：打印版本信息并退出。<br><span class="hljs-bullet">    -</span> 说明：运行时不会启动应用程序，而是打印当前版本信息。<br></code></pre></td></tr></table></figure>
+<h2 id="WinGet工具的使用"><a href="#WinGet工具的使用" class="headerlink" title="WinGet工具的使用"></a>WinGet工具的使用</h2><p>常用参数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">● winget show 软件名  <span class="hljs-comment">#查询软件库中软件信息，该命令支持中文检索</span><br>● winget install --<span class="hljs-built_in">id</span>=xxx  <span class="hljs-comment">#安装软件，通过查询软件名可知id号，通过id号来安装，避免因为软件名称混淆导致的安装失败（在WinGet自带的软件库中，就存在QQ、腾讯QQ，以及不同来源的QQ，直接使用软件名安装可能会导致安装失败）</span><br>● winget uninstall --<span class="hljs-built_in">id</span>=xxx  <span class="hljs-comment">#卸载软件，使用id号原因同上</span><br>● winget upgrade --<span class="hljs-built_in">id</span>=xxx  <span class="hljs-comment">#更新软件，从软件库中获取更新</span><br>● winget list  <span class="hljs-comment">#查询安装的应用程序</span><br></code></pre></td></tr></table></figure>
+<p>已管理员的身份启动命令行，执行“ winget source add -n qunhe -a <a target="_blank" rel="noopener" href="https://winget.qunhequnhe.com/api">https://winget.qunhequnhe.com/api</a> -t “Microsoft.Rest”，随后“winget install 软件名 -s qunhe”即可。<br>这里我写一个bat脚本，能够自动执行添加软件源及安装小酷助手、企业微信、WPS及腾讯会议。有特殊需求直接修改这个脚本即可。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs stylus">@echo off<br>echo Installing standard software...<br>winget <span class="hljs-selector-tag">source</span> add -n qunhe -<span class="hljs-selector-tag">a</span> https:<span class="hljs-comment">//winget.qunhequnhe.com/api -t &quot;Microsoft.Rest&quot;</span><br>winget install qunhe<span class="hljs-selector-class">.xiaoku</span> qunhe<span class="hljs-selector-class">.qiyeweixin</span>  KingsoftCorp<span class="hljs-selector-class">.Ltd</span><span class="hljs-selector-class">.WPSOffice</span> Tencent<span class="hljs-selector-class">.WeMeet</span> -s qunhe<br>echo Installation complete.<br></code></pre></td></tr></table></figure>
+<p>功能测试：</p>
+<p>需要注意以下几点，</p>
+<ol>
+<li>win系统必须带有winget</li>
+<li>必须能解析winget.qunhequnhe.com这个域名如果不可以可能是你的dns服务器设置的有问题，可以尝试使用10.1.102.201<br>拓展参数：<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs elm"><span class="hljs-title">install</span>    安装给定的程序包<br>  show       显示包的相关信息<br>  source     管理程序包的来源<br>  search     查找并显示程序包的基本信息<br>  list       显示已安装的程序包<br>  upgrade    显示并执行可用升级<br>  uninstall  卸载给定的程序包<br>  hash       哈希安装程序的帮助程序<br>  validate   验证清单文件<br>  settings   打开设置或设置管理员设置<br>  features   显示实验性功能的状态<br>  ex<span class="hljs-keyword">port</span>     导出已安装程序包的列表<br>  <span class="hljs-keyword">import</span>     安装文件中的所有程序包<br>  pin        管理包钉<br>  configure  将系统配置为所需状态<br>  download   从给定的程序包下载安装程序<br>  repair     修复所选包<br></code></pre></td></tr></table></figure></li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/IT%E6%8A%80%E6%9C%AF%E6%94%AF%E6%8C%81/" class="category-chain-item">IT技术支持</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/windows/" class="print-no-link">#windows</a>
+      
+        <a href="/tags/winget/" class="print-no-link">#winget</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>winget工具概述</div>
+      <div>http://example.com/2024/08/11/winget工具概述/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Azu</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年8月11日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/08/11/%E6%88%91%E6%98%AFAzu/" title="我是Azu">
+                        <span class="hidden-mobile">我是Azu</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"H5pOaZNNUNx7NG9Qlt8wmVwk-gzGzoHsz","appKey":"qJ9vNqoAmOj5dAwXE3hofC29","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
