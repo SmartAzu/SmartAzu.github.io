@@ -26,14 +26,16 @@
 <meta property="og:site_name" content="Azu blog">
 <meta property="og:description" content="WinGet概述以下资料来源于微软社区：https:&#x2F;&#x2F;learn.microsoft.com&#x2F;zh-cn&#x2F;windows&#x2F;package-manager&#x2F; 什么是WinGet？Windows软件包管理器 (WinGet) 是一个工具，帮助用户在Windows系统上发现和安装软件包。项目包括命令行界面 (CLI)、PowerShell模块和组件对象模型 (COM) API。客户端可以访问来自Mic">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/.com//1.png">
-<meta property="article:published_time" content="2024-08-11T05:12:57.000Z">
-<meta property="article:modified_time" content="2024-08-11T05:31:15.948Z">
+<meta property="og:image" content="http://example.com/img/winget_1.png">
+<meta property="og:image" content="http://example.com/img/winget_2.png">
+<meta property="og:image" content="http://example.com/img/winget_3.png">
+<meta property="article:published_time" content="2024-08-11T06:05:45.000Z">
+<meta property="article:modified_time" content="2024-08-11T06:19:12.579Z">
 <meta property="article:author" content="Azu">
 <meta property="article:tag" content="windows">
 <meta property="article:tag" content="winget">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/.com//1.png">
+<meta name="twitter:image" content="http://example.com/img/winget_1.png">
   
   
   
@@ -227,7 +229,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-08-11 13:12" pubdate>
+        <time datetime="2024-08-11 14:05" pubdate>
           2024年8月11日 下午
         </time>
       </span>
@@ -250,7 +252,7 @@
         
         
         
-          19 分钟
+          20 分钟
         
       </span>
     
@@ -305,10 +307,12 @@
 <h2 id="什么是WinGet？"><a href="#什么是WinGet？" class="headerlink" title="什么是WinGet？"></a>什么是WinGet？</h2><p>Windows软件包管理器 (WinGet) 是一个工具，帮助用户在Windows系统上发现和安装软件包。项目包括命令行界面 (CLI)、PowerShell模块和组件对象模型 (COM) API。客户端可以访问来自Microsoft Store和WinGet社区库的包,同时支持自建软件源访问。</p>
 <h2 id="什么系统支持使用WinGet？"><a href="#什么系统支持使用WinGet？" class="headerlink" title="什么系统支持使用WinGet？"></a>什么系统支持使用WinGet？</h2><p>Windows 10（1809）以后的版本，会自动安装WinGet工具。在此之前的windows系统需要手动安装，在微软商店。<br>windows 10 （1709）以后都支持使用，但是有一个前提条件，必须更新微软商店，原因是windows11采取了新的微软商店并强制要求所有商店更新至该版本否则不能使用。由于是新系统下的商店，很多依赖项在win10上是没有的，需要手动去安装，具体参考文章windows 10下安装winget。<br>最低支持版本：<br>winget 命令行工具仅在 Windows 10 1709（版本 16299）或更高版本上受支持。 在你首次以用户身份登录 Windows（这会触发 Microsoft Store 将 Windows 程序包管理器注册为异步进程的一部分）之前，winget 工具不可用。 如果最近已经以用户身份进行了首次登录，但发现 winget 尚不可用，则可以打开 PowerShell 并输入以下命令来请求此 winget 注册：Add-AppxPackage -RegisterByFamilyName -MainPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe。</p>
 <h2 id="WinGet支持哪些安装程序？"><a href="#WinGet支持哪些安装程序？" class="headerlink" title="WinGet支持哪些安装程序？"></a>WinGet支持哪些安装程序？</h2><p>● EXE（具有 Silent 和 SilentWithProgress 标志）<br>● ZIP<br>● INNO<br>● NULLSOFT<br>● MSI<br>● WIX<br>● APPX<br>● MSIX<br>● BURN<br>● PORTABLE</p>
-<h2 id="WinGet的下载"><a href="#WinGet的下载" class="headerlink" title="WinGet的下载"></a>WinGet的下载</h2><p>这里提供一个稳定版本1.8.1522<br>github地址:<a target="_blank" rel="noopener" href="https://github.com/microsoft/winget-cli/releases">https://github.com/microsoft/winget-cli/releases</a></p>
-<h2 id="WinGet应用场景"><a href="#WinGet应用场景" class="headerlink" title="WinGet应用场景"></a>WinGet应用场景</h2><p><img src="/.com//1.png" srcset="/img/loading.gif" lazyload alt="图片未加载"></p>
-<p>通过以上方法，提升了网络整体安全性，避免了终端用户从不安全网站下载非法应用所带来的内网安全隐患。同时，通过使用批处理脚本实现批量安装应用程序，减少了重复工作，提高了工作效率。<br>WinGet软件源的搭建<br>准备工作，创建软件清单<br>这里用wingetcreate来实现软件清单创建<br>通过winget命令install wingetcreate（建议连接vpn，这里可能因为网络因素安装失败）<br>寻找需要的软件包，获取其下载链接。<br>通过wingetcreate new install url，来获取清单。<br>可以通过 wingetcreate.exe update –urls 来更新清单。<br>github地址：<a target="_blank" rel="noopener" href="https://github.com/jantari/rewinged">https://github.com/jantari/rewinged</a><br>搭建nginx服务器<br>由于winget要求软件源必须使用HTTPS，所以需要通过nginx的反向代理来实现访问。</p>
-<h2 id="搭建Rewinged"><a href="#搭建Rewinged" class="headerlink" title="搭建Rewinged"></a>搭建Rewinged</h2><p>Rewinged 是一个自托管的 winget 包源工具，可以运行在 Linux、Windows、Docker 或云环境中。它通过读取目录中的包清单，并通过 REST API 使这些包可以被 winget 客户端搜索和访问。这使得用户可以创建和管理自己的私有 winget 包源，而无需依赖于云服务，winget 要求 REST 源使用 HTTPS - 不允许明文 HTTP。<br>github地址：<a target="_blank" rel="noopener" href="https://github.com/jantari/rewinged">https://github.com/jantari/rewinged</a><br>封装好的程序包地址：<a target="_blank" rel="noopener" href="https://github.com/jantari/rewinged/releases">https://github.com/jantari/rewinged/releases</a></p>
+<h3 id="WinGet的下载"><a href="#WinGet的下载" class="headerlink" title="WinGet的下载"></a>WinGet的下载</h3><p>这里提供一个稳定版本1.8.1522<br>github地址:<a target="_blank" rel="noopener" href="https://github.com/microsoft/winget-cli/releases">https://github.com/microsoft/winget-cli/releases</a></p>
+<h2 id="WinGet应用场景"><a href="#WinGet应用场景" class="headerlink" title="WinGet应用场景"></a>WinGet应用场景</h2><p><img src="/img/winget_1.png" srcset="/img/loading.gif" lazyload alt="winget_1"><br><img src="/img/winget_2.png" srcset="/img/loading.gif" lazyload alt="winget_2"></p>
+<p>通过以上方法，提升了网络整体安全性，避免了终端用户从不安全网站下载非法应用所带来的内网安全隐患。同时，通过使用批处理脚本实现批量安装应用程序，减少了重复工作，提高了工作效率。</p>
+<h2 id="WinGet软件源的搭建"><a href="#WinGet软件源的搭建" class="headerlink" title="WinGet软件源的搭建"></a>WinGet软件源的搭建</h2><p>准备工作，创建软件清单<br>这里用wingetcreate来实现软件清单创建<br>通过winget命令install wingetcreate（建议连接vpn，这里可能因为网络因素安装失败）<br>寻找需要的软件包，获取其下载链接。<br>通过wingetcreate new install url，来获取清单。<br>可以通过 wingetcreate.exe update –urls 来更新清单。<br>github地址：<a target="_blank" rel="noopener" href="https://github.com/jantari/rewinged">https://github.com/jantari/rewinged</a></p>
+<h3 id="搭建nginx服务器"><a href="#搭建nginx服务器" class="headerlink" title="搭建nginx服务器"></a>搭建nginx服务器</h3><p>由于winget要求软件源必须使用HTTPS，所以需要通过nginx的反向代理来实现访问。<br>安装过程不在这里赘述，贴一张nginx配置文件提供参考。</p>
+<h3 id="搭建Rewinged"><a href="#搭建Rewinged" class="headerlink" title="搭建Rewinged"></a>搭建Rewinged</h3><p>Rewinged 是一个自托管的 winget 包源工具，可以运行在 Linux、Windows、Docker 或云环境中。它通过读取目录中的包清单，并通过 REST API 使这些包可以被 winget 客户端搜索和访问。这使得用户可以创建和管理自己的私有 winget 包源，而无需依赖于云服务，winget 要求 REST 源使用 HTTPS - 不允许明文 HTTP。<br>github地址：<a target="_blank" rel="noopener" href="https://github.com/jantari/rewinged">https://github.com/jantari/rewinged</a><br>封装好的程序包地址：<a target="_blank" rel="noopener" href="https://github.com/jantari/rewinged/releases">https://github.com/jantari/rewinged/releases</a></p>
 <ol>
 <li>将wingetcreate创建的清单移至服务器，Rewinged 对应目录下（wingetcreate及winget仅可在Windows运行，若操作系统为其他则需要手动填写清单，或将wingetcreate创建的清单移到对应文件夹中）</li>
 <li>通过参数configFile可以将所有参数写成一个json来执行</li>
@@ -322,8 +326,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">● winget show 软件名  <span class="hljs-comment">#查询软件库中软件信息，该命令支持中文检索</span><br>● winget install --<span class="hljs-built_in">id</span>=xxx  <span class="hljs-comment">#安装软件，通过查询软件名可知id号，通过id号来安装，避免因为软件名称混淆导致的安装失败（在WinGet自带的软件库中，就存在QQ、腾讯QQ，以及不同来源的QQ，直接使用软件名安装可能会导致安装失败）</span><br>● winget uninstall --<span class="hljs-built_in">id</span>=xxx  <span class="hljs-comment">#卸载软件，使用id号原因同上</span><br>● winget upgrade --<span class="hljs-built_in">id</span>=xxx  <span class="hljs-comment">#更新软件，从软件库中获取更新</span><br>● winget list  <span class="hljs-comment">#查询安装的应用程序</span><br></code></pre></td></tr></table></figure>
 <p>已管理员的身份启动命令行，执行“ winget source add -n qunhe -a <a target="_blank" rel="noopener" href="https://winget.qunhequnhe.com/api">https://winget.qunhequnhe.com/api</a> -t “Microsoft.Rest”，随后“winget install 软件名 -s qunhe”即可。<br>这里我写一个bat脚本，能够自动执行添加软件源及安装小酷助手、企业微信、WPS及腾讯会议。有特殊需求直接修改这个脚本即可。</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs stylus">@echo off<br>echo Installing standard software...<br>winget <span class="hljs-selector-tag">source</span> add -n qunhe -<span class="hljs-selector-tag">a</span> https:<span class="hljs-comment">//winget.qunhequnhe.com/api -t &quot;Microsoft.Rest&quot;</span><br>winget install qunhe<span class="hljs-selector-class">.xiaoku</span> qunhe<span class="hljs-selector-class">.qiyeweixin</span>  KingsoftCorp<span class="hljs-selector-class">.Ltd</span><span class="hljs-selector-class">.WPSOffice</span> Tencent<span class="hljs-selector-class">.WeMeet</span> -s qunhe<br>echo Installation complete.<br></code></pre></td></tr></table></figure>
-<p>功能测试：</p>
-<p>需要注意以下几点，</p>
+<p>功能测试：<br><img src="/img/winget_3.png" srcset="/img/loading.gif" lazyload alt="winget_3"><br>需要注意以下几点，</p>
 <ol>
 <li>win系统必须带有winget</li>
 <li>必须能解析winget.qunhequnhe.com这个域名如果不可以可能是你的dns服务器设置的有问题，可以尝试使用10.1.102.201<br>拓展参数：<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs elm"><span class="hljs-title">install</span>    安装给定的程序包<br>  show       显示包的相关信息<br>  source     管理程序包的来源<br>  search     查找并显示程序包的基本信息<br>  list       显示已安装的程序包<br>  upgrade    显示并执行可用升级<br>  uninstall  卸载给定的程序包<br>  hash       哈希安装程序的帮助程序<br>  validate   验证清单文件<br>  settings   打开设置或设置管理员设置<br>  features   显示实验性功能的状态<br>  ex<span class="hljs-keyword">port</span>     导出已安装程序包的列表<br>  <span class="hljs-keyword">import</span>     安装文件中的所有程序包<br>  pin        管理包钉<br>  configure  将系统配置为所需状态<br>  download   从给定的程序包下载安装程序<br>  repair     修复所选包<br></code></pre></td></tr></table></figure></li>
@@ -423,12 +426,6 @@
                   </article>
                   <article class="post-next col-6">
                     
-                    
-                      <a href="/2024/08/11/%E6%88%91%E6%98%AFAzu/" title="我是Azu">
-                        <span class="hidden-mobile">我是Azu</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
                     
                   </article>
                 </div>
