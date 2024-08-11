@@ -1,0 +1,757 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Azu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="什么是zabbix？zabbix是一个监控软件，其可以监控各种网络参数，保证企业服务架构安全运营，同时支持灵活的告警机制，可以使得运维人员快速定位故障、解决问题。zabbix支持分布式功能，支持复杂架构下的监控解决方案，也支持web页面，为主机监控提供了良好直观的展现。zabbix官网地址为https:&#x2F;&#x2F;www.zabbix.com&#x2F; zabbix组成zabbix server概念：核心组件，内">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zabbix学习记录_1">
+<meta property="og:url" content="http://example.com/2024/08/11/zabbix%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-1/index.html">
+<meta property="og:site_name" content="Azu blog">
+<meta property="og:description" content="什么是zabbix？zabbix是一个监控软件，其可以监控各种网络参数，保证企业服务架构安全运营，同时支持灵活的告警机制，可以使得运维人员快速定位故障、解决问题。zabbix支持分布式功能，支持复杂架构下的监控解决方案，也支持web页面，为主机监控提供了良好直观的展现。zabbix官网地址为https:&#x2F;&#x2F;www.zabbix.com&#x2F; zabbix组成zabbix server概念：核心组件，内">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-08-11T10:34:30.000Z">
+<meta property="article:modified_time" content="2024-08-11T10:44:34.901Z">
+<meta property="article:author" content="Azu">
+<meta property="article:tag" content="zabbix">
+<meta property="article:tag" content="运维监控">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>zabbix学习记录_1 - Azu blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"enable","follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"H5pOaZNNUNx7NG9Qlt8wmVwk-gzGzoHsz","app_key":"qJ9vNqoAmOj5dAwXE3hofC29","server_url":"https://h5poaznn.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Azu&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="zabbix学习记录_1"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-08-11 18:34" pubdate>
+          2024年8月11日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          总阅读量 <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">zabbix学习记录_1</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="什么是zabbix？"><a href="#什么是zabbix？" class="headerlink" title="什么是zabbix？"></a>什么是zabbix？</h2><p>zabbix是一个监控软件，其可以监控各种网络参数，保证企业服务架构安全运营，同时支持灵活的告警机制，可以使得运维人员快速定位故障、解决问题。zabbix支持分布式功能，支持复杂架构下的监控解决方案，也支持web页面，为主机监控提供了良好直观的展现。<br>zabbix官网地址为<a target="_blank" rel="noopener" href="https://www.zabbix.com/">https://www.zabbix.com/</a></p>
+<h2 id="zabbix组成"><a href="#zabbix组成" class="headerlink" title="zabbix组成"></a>zabbix组成</h2><h3 id="zabbix-server"><a href="#zabbix-server" class="headerlink" title="zabbix server"></a>zabbix server</h3><p>概念：核心组件，内部存储了所有的配置信息、统计信息和操作信息。zabbix agent会向zabbix server报告可用性、完整性及其他统计信息。</p>
+<h3 id="web页面"><a href="#web页面" class="headerlink" title="web页面"></a>web页面</h3><p>web页面属于zabbix的一部分，通过图形化界面直观展示了监控信息，方便运维人员监控管理。</p>
+<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><p>zabbix使用数据库，存储监控数据。</p>
+<h3 id="zabbix-proxy"><a href="#zabbix-proxy" class="headerlink" title="zabbix proxy"></a>zabbix proxy</h3><p>这里不得不说到zabbix的三种部署方式，server-client，server-proxy-client，server-node-client，在不同网络架构下部署不同的模式，具体差别请自行搜索，这里不再赘述。<br>zabbix proxy可以根据具体生产环境进行采用或者放弃。如果使用了zabbix proxy，则其会替代zabbix server采集数据信息，可以很好的分担zabbix server的负载。zabbix proxy通常运用与架构过大、zabbix server负载过重，或者是企业设备跨机房、跨网段、zabbix server无法与zabbix agent直接通信的场景。</p>
+<h3 id="zabbix-Agent"><a href="#zabbix-Agent" class="headerlink" title="zabbix Agent"></a>zabbix Agent</h3><p>zabbix agent通常部署在被监控目标上，用于主动监控本地资源和应用程序，并将监控的数据发送给zabbix server。</p>
+<h2 id="zabbix是怎样工作的？"><a href="#zabbix是怎样工作的？" class="headerlink" title="zabbix是怎样工作的？"></a>zabbix是怎样工作的？</h2><p>zabbix在进行监控时，agent作为zabbix客户端被安装在被监控设备上，负责定期收集数据并将其转发给zabbix服务端，服务端的主要工作是存储数据及提供web服务。<br>zabbix的数据收集分为两种模式：</p>
+<h3 id="1、主动"><a href="#1、主动" class="headerlink" title="1、主动"></a>1、主动</h3><p>客户端主动向服务端请求监控项列表，并主动将收集到的数据提交给服务端。</p>
+<h3 id="2、被动"><a href="#2、被动" class="headerlink" title="2、被动"></a>2、被动</h3><p>由服务端向客户端发起请求监控项列表，随后客户端返回信息到服务端<br>主被关系均以zabbix客户端为基准</p>
+<h2 id="zabbix的工作进程有哪些？"><a href="#zabbix的工作进程有哪些？" class="headerlink" title="zabbix的工作进程有哪些？"></a>zabbix的工作进程有哪些？</h2><p>在默认的情况下，zabbix有6个工作进程；分别是 zabbix_agentd，zabbix_get，zabbix_proxy，zabbix_sender，zabbix_server 和 zabbix_gateway。<br>其中，zabbix_java_gateway是可选进程。（监控JMX虚拟机）</p>
+<h3 id="1、zabbix-agentd"><a href="#1、zabbix-agentd" class="headerlink" title="1、zabbix_agentd"></a>1、zabbix_agentd</h3><p>zabbix-agentd为zabbix客户端守护进程 ，主要负责收集客户端监控项数据。</p>
+<h3 id="2、zabbix-server"><a href="#2、zabbix-server" class="headerlink" title="2、zabbix_server"></a>2、zabbix_server</h3><p>zabbix_server为zabbix服务端守护进程，主要负责收集zabbix客户端数据。（端口为10051）（固定端口吗？）</p>
+<h3 id="3、zabbix-proxy"><a href="#3、zabbix-proxy" class="headerlink" title="3、zabbix_proxy"></a>3、zabbix_proxy</h3><p>zabbix_proxy是zabbix的代理程序，其功能类似于server，作用上类似于一个中转站，最终会把收集的数据再次提交给zabbix_server。</p>
+<h3 id="4、zabbix-get"><a href="#4、zabbix-get" class="headerlink" title="4、zabbix_get"></a>4、zabbix_get</h3><p>zabbix_get作为zabbix工具，通常运行在zabbix_server或者zabbix_proxy上，用于远程获取客户端信息，通常用于排错。</p>
+<h3 id="5、zabbix-sender"><a href="#5、zabbix-sender" class="headerlink" title="5、zabbix_sender"></a>5、zabbix_sender</h3><p>zabbix_sender也是zabbix的一个工具，通常运行在zabbix的客户端，用于耗时比较长的检查，其作用是主动发送数据。</p>
+<h3 id="6、zabbix-java-gateway"><a href="#6、zabbix-java-gateway" class="headerlink" title="6、zabbix_java_gateway"></a>6、zabbix_java_gateway</h3><p>zabbix_java_gateway是zabbix2.0以后引入的新功能，可以用于JAVA方面的设备；但是只能主动获取数据，而不能被动获取数据。</p>
+<h2 id="zabbix具体能有哪些监控？"><a href="#zabbix具体能有哪些监控？" class="headerlink" title="zabbix具体能有哪些监控？"></a>zabbix具体能有哪些监控？</h2><p>硬件监控：通过IPMI接口进行监控，监控对象的物理特征，如电压、温度、风扇状态、电源状态等<br>系统监控：zabbix agent interface，通过专用的代理程序进行监控，与常见的master&#x2F;agent模式类似，如果被监控对象支持对应的agent，推荐首选这种模式<br>java监控：zabbix JMX interface，通过JMX进行监控，JMX(java扩展管理)，通常用于监控JVM虚拟机<br>网络设备监控：zabbix snmp interface，通过snmp协议与被监控对象进行通信，通常来讲，无法在如路由器，交换机这种网络设备上安装agent，但是这些设备通常都支持snmp协议<br>应用服务监控、MYSQL数据库监控、URL监控<br>网络设备监控，系统监控，硬件监控为重点。</p>
+<h2 id="zabbix的常用术语"><a href="#zabbix的常用术语" class="headerlink" title="zabbix的常用术语"></a>zabbix的常用术语</h2><h3 id="1、主机（host）"><a href="#1、主机（host）" class="headerlink" title="1、主机（host）"></a>1、主机（host）</h3><p>要监控的设备，可以由IP或者是主机名（必须可解析）指定。</p>
+<h3 id="2、主机组（host-group）"><a href="#2、主机组（host-group）" class="headerlink" title="2、主机组（host group）"></a>2、主机组（host group）</h3><p>主机的逻辑容器，包含主机和模板，主机组通常在给用户或者是用户组指派监控权限时使用。</p>
+<h3 id="3、监控项（item）"><a href="#3、监控项（item）" class="headerlink" title="3、监控项（item）"></a>3、监控项（item）</h3><p>一个特定监控指标的相关数据，比如内存的大小、CPU的使用率，甚至是服务的运行状态等等。监控项数据来源于被监控对象，并且每个监控项都由一个key来标识。</p>
+<h3 id="4、触发器（trigger）"><a href="#4、触发器（trigger）" class="headerlink" title="4、触发器（trigger）"></a>4、触发器（trigger）</h3><p>一个表达式，用于评估监控项的值是否在合理的范围内。当接收的值超出触发器的规定时，就被认为是故障，如果超出后再次符合，就被认为是正常，也就意味着这是一个过程，it运维小分队里的告警机器人用的就是该项。</p>
+<h3 id="5、事件（event）"><a href="#5、事件（event）" class="headerlink" title="5、事件（event）"></a>5、事件（event）</h3><p>触发器触发的一个特定事件，或者是zabbix定义的一个自动上线注册主机的事件。</p>
+<h3 id="6、动作（action）"><a href="#6、动作（action）" class="headerlink" title="6、动作（action）"></a>6、动作（action）</h3><p>指根据配置，zabbix对于触发器触发的特定事件进行处理的具体措施，如执行某个脚本，或者是向管理员邮箱发送邮件等等。</p>
+<h3 id="7、报警升级（escalation）"><a href="#7、报警升级（escalation）" class="headerlink" title="7、报警升级（escalation）"></a>7、报警升级（escalation）</h3><p>发送警报或者是执行远程命令的自定义方案。</p>
+<h3 id="8、媒介（media）"><a href="#8、媒介（media）" class="headerlink" title="8、媒介（media）"></a>8、媒介（media）</h3><p>发送通知（告警）的手段，如微信、邮件、钉钉等等。</p>
+<h3 id="9、通知（notification）"><a href="#9、通知（notification）" class="headerlink" title="9、通知（notification）"></a>9、通知（notification）</h3><p>通过指定的媒介，向用户发送的有关事件的信息。</p>
+<h3 id="10、远程命令（remote-command）"><a href="#10、远程命令（remote-command）" class="headerlink" title="10、远程命令（remote command）"></a>10、远程命令（remote command）</h3><p>指运维人员提前写好的命令，可以让被监控主机在触发事件后执行。</p>
+<h3 id="11、模板（template）"><a href="#11、模板（template）" class="headerlink" title="11、模板（template）"></a>11、模板（template）</h3><p>用于快速定义被监控主机的预设条目集合，通常包括了监控项、触发器、应用等，模板可以直接链接至某个主机。</p>
+<h3 id="12、应用（application）"><a href="#12、应用（application）" class="headerlink" title="12、应用（application）"></a>12、应用（application）</h3><p>一组监控项的集合。</p>
+<h3 id="13、web场景（web-scennario）"><a href="#13、web场景（web-scennario）" class="headerlink" title="13、web场景（web scennario）"></a>13、web场景（web scennario）</h3><p>用于检测web站点可用性的一个或多个HTTP请求。</p>
+<h3 id="14、前端（frontend）"><a href="#14、前端（frontend）" class="headerlink" title="14、前端（frontend）"></a>14、前端（frontend）</h3><p>zabbix的web接口。</p>
+<p>通过本次学习，对zabbix有了初步的了解。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E8%BF%90%E7%BB%B4/" class="category-chain-item">网络运维</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/zabbix/" class="print-no-link">#zabbix</a>
+      
+        <a href="/tags/%E8%BF%90%E7%BB%B4%E7%9B%91%E6%8E%A7/" class="print-no-link">#运维监控</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>zabbix学习记录_1</div>
+      <div>http://example.com/2024/08/11/zabbix学习记录-1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Azu</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年8月11日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/08/11/winget%E5%B7%A5%E5%85%B7%E6%A6%82%E8%BF%B0/" title="winget工具概述">
+                        <span class="hidden-mobile">winget工具概述</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"H5pOaZNNUNx7NG9Qlt8wmVwk-gzGzoHsz","appKey":"qJ9vNqoAmOj5dAwXE3hofC29","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
