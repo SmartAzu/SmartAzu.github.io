@@ -19,15 +19,15 @@
   <meta name="author" content="Azu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="安装Docker系统：Ubuntu 22.04 LTS  确保下载源安全性：由于 apt 源使用 HTTPS 以确保软件下载过程中不被篡改。因此，我们首先需要添加使用 HTTPS 传输的软件包以及 CA 证书。 123456789# 添加使用HTTPS传输的软件包以及CA证书$ sudo apt-get update$ sudo apt-get install \    apt-transport">
+    <meta name="description" content="配置Docker镜像源加速因为不可抗因素，在国内Docker从仓库上pull镜像下来比较麻烦。这里提供一个解决该问题的方法，配置镜像源加速。 可用系统：Ubuntu、Debian、CentOS目前主流 Linux 发行版均已使用 systemd 进行服务管理，这里介绍如何在使用 systemd 的 Linux 发行版中配置镜像加速器。 请首先执行以下命令，查看是否在 docker.service">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Docker学习记录_2">
-<meta property="og:url" content="http://example.com/2024/08/15/Docker%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-2/index.html">
+<meta property="og:title" content="Docker学习记录_2_补充">
+<meta property="og:url" content="http://example.com/2024/08/15/Docker%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-2-%E8%A1%A5%E5%85%85/index.html">
 <meta property="og:site_name" content="Azu blog">
-<meta property="og:description" content="安装Docker系统：Ubuntu 22.04 LTS  确保下载源安全性：由于 apt 源使用 HTTPS 以确保软件下载过程中不被篡改。因此，我们首先需要添加使用 HTTPS 传输的软件包以及 CA 证书。 123456789# 添加使用HTTPS传输的软件包以及CA证书$ sudo apt-get update$ sudo apt-get install \    apt-transport">
+<meta property="og:description" content="配置Docker镜像源加速因为不可抗因素，在国内Docker从仓库上pull镜像下来比较麻烦。这里提供一个解决该问题的方法，配置镜像源加速。 可用系统：Ubuntu、Debian、CentOS目前主流 Linux 发行版均已使用 systemd 进行服务管理，这里介绍如何在使用 systemd 的 Linux 发行版中配置镜像加速器。 请首先执行以下命令，查看是否在 docker.service">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-08-15T01:01:15.000Z">
-<meta property="article:modified_time" content="2024-08-15T04:25:28.232Z">
+<meta property="article:published_time" content="2024-08-15T06:08:48.000Z">
+<meta property="article:modified_time" content="2024-08-15T06:10:51.889Z">
 <meta property="article:author" content="Azu">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="基础IT架构">
@@ -36,7 +36,7 @@
   
   
   
-  <title>Docker学习记录_2 - Azu blog</title>
+  <title>Docker学习记录_2_补充 - Azu blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -215,7 +215,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Docker学习记录_2"></span>
+            <span id="subtitle" data-typed-text="Docker学习记录_2_补充"></span>
           
         </div>
 
@@ -226,8 +226,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-08-15 09:01" pubdate>
-          2024年8月15日 上午
+        <time datetime="2024-08-15 14:08" pubdate>
+          2024年8月15日 下午
         </time>
       </span>
     
@@ -238,7 +238,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          389 字
+          295 字
         
       </span>
     
@@ -249,7 +249,7 @@
         
         
         
-          4 分钟
+          3 分钟
         
       </span>
     
@@ -295,31 +295,19 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Docker学习记录_2</h1>
+            <h1 id="seo-header">Docker学习记录_2_补充</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h2><p>系统：Ubuntu 22.04 LTS </p>
-<h3 id="确保下载源安全性："><a href="#确保下载源安全性：" class="headerlink" title="确保下载源安全性："></a>确保下载源安全性：</h3><p>由于 apt 源使用 HTTPS 以确保软件下载过程中不被篡改。因此，我们首先需要添加使用 HTTPS 传输的软件包以及 CA 证书。</p>
-<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs livescript"><span class="hljs-comment"># 添加使用HTTPS传输的软件包以及CA证书</span><br>$ sudo apt-get update<br><br>$ sudo apt-get install <span class="hljs-string">\</span><br>    apt-transport-https <span class="hljs-string">\</span><br>    ca-certificates <span class="hljs-string">\</span><br>    curl <span class="hljs-string">\</span><br>    gnupg <span class="hljs-string">\</span><br>    lsb-release<br></code></pre></td></tr></table></figure>
-<h3 id="鉴于国内网络问题，修改为镜像源为国内源："><a href="#鉴于国内网络问题，修改为镜像源为国内源：" class="headerlink" title="鉴于国内网络问题，修改为镜像源为国内源："></a>鉴于国内网络问题，修改为镜像源为国内源：</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment"># 添加阿里源及软件源的GPG密钥</span><br>$ curl -fsSL https:<span class="hljs-regexp">//mi</span>rrors.aliyun.com<span class="hljs-regexp">/docker-ce/</span>linux<span class="hljs-regexp">/ubuntu/g</span>pg | sudo gpg --dearmor -o <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/keyrings/</span>docker-archive-keyring.gpg<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">向 sources.list 中添加 Docker 软件源</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">echo</span> \</span><br><span class="language-bash">  <span class="hljs-string">&quot;deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://mirrors.aliyun.com/docker-ce/linux/ubuntu \</span></span><br><span class="hljs-string"><span class="language-bash">  <span class="hljs-subst">$(lsb_release -cs)</span> stable&quot;</span> | <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">tee</span> /etc/apt/sources.list.d/docker.list &gt; /dev/null</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="更新apt软件包缓存："><a href="#更新apt软件包缓存：" class="headerlink" title="更新apt软件包缓存："></a>更新apt软件包缓存：</h3><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">sudo apt-<span class="hljs-keyword">get</span> <span class="hljs-keyword">update</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="安装Docker-ce："><a href="#安装Docker-ce：" class="headerlink" title="安装Docker-ce："></a>安装Docker-ce：</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">$ sudo apt-<span class="hljs-built_in">get</span> install docker-<span class="hljs-keyword">ce</span> docker-<span class="hljs-keyword">ce</span>-cli containerd.io docker-compose-plugin<br></code></pre></td></tr></table></figure>
-
-<h3 id="启动Docker："><a href="#启动Docker：" class="headerlink" title="启动Docker："></a>启动Docker：</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">sudo</span> systemctl <span class="hljs-built_in">enable</span> docker</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">sudo</span> systemctl start docker</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="建立Docker用户组："><a href="#建立Docker用户组：" class="headerlink" title="建立Docker用户组："></a>建立Docker用户组：</h3><p>默认情况下，docker 命令会使用 Unix socket 与 Docker 引擎通讯。而只有 root 用户和 docker 组的用户才可以访问 Docker 引擎的 Unix socket。出于安全考虑，一般 Linux 系统上不会直接使用 root 用户。因此，更好地做法是将需要使用 docker 的用户加入 docker 用户组。</p>
-<h3 id="建立-docker-组："><a href="#建立-docker-组：" class="headerlink" title="建立 docker 组："></a>建立 docker 组：</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">sudo</span> groupadd docker</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="将当前用户加入-docker-组："><a href="#将当前用户加入-docker-组：" class="headerlink" title="将当前用户加入 docker 组："></a>将当前用户加入 docker 组：</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">sudo</span> usermod -aG docker <span class="hljs-variable">$USER</span></span><br></code></pre></td></tr></table></figure>
-
-<h2 id="测试-Docker-是否安装正确"><a href="#测试-Docker-是否安装正确" class="headerlink" title="测试 Docker 是否安装正确"></a>测试 Docker 是否安装正确</h2><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">$ docker run <span class="hljs-comment">--rm hello-world</span><br><br>Unable <span class="hljs-built_in">to</span> find image <span class="hljs-string">&#x27;hello-world:latest&#x27;</span> locally<br>latest: Pulling <span class="hljs-built_in">from</span> library/hello-world<br>b8dfde127a29: Pull complete<br>Digest: sha256:<span class="hljs-number">308866</span>a43596e83578c7dfa15e27a73011bdd402185a84c5cd7f32a88b501a24<br>Status: Downloaded newer image <span class="hljs-keyword">for</span> hello-world:latest<br><br>Hello <span class="hljs-built_in">from</span> Docker!<br>This message shows that your installation appears <span class="hljs-built_in">to</span> be working correctly.<br><br>To generate this message, Docker took <span class="hljs-keyword">the</span> following steps:<br> <span class="hljs-number">1.</span> The Docker client contacted <span class="hljs-keyword">the</span> Docker daemon.<br> <span class="hljs-number">2.</span> The Docker daemon pulled <span class="hljs-keyword">the</span> <span class="hljs-string">&quot;hello-world&quot;</span> image <span class="hljs-built_in">from</span> <span class="hljs-keyword">the</span> Docker Hub.<br>    (amd64)<br> <span class="hljs-number">3.</span> The Docker daemon created <span class="hljs-keyword">a</span> <span class="hljs-built_in">new</span> container <span class="hljs-built_in">from</span> that image which runs <span class="hljs-keyword">the</span><br>    executable that produces <span class="hljs-keyword">the</span> output you are currently reading.<br> <span class="hljs-number">4.</span> The Docker daemon streamed that output <span class="hljs-built_in">to</span> <span class="hljs-keyword">the</span> Docker client, which sent <span class="hljs-keyword">it</span><br>    <span class="hljs-built_in">to</span> your terminal.<br><br>To <span class="hljs-keyword">try</span> something more ambitious, you can run <span class="hljs-keyword">an</span> Ubuntu container <span class="hljs-keyword">with</span>:<br> $ docker run -<span class="hljs-keyword">it</span> ubuntu bash<br><br>Share images, automate workflows, <span class="hljs-keyword">and</span> more <span class="hljs-keyword">with</span> <span class="hljs-keyword">a</span> free Docker ID:<br> <span class="hljs-keyword">https</span>://hub.docker.com/<br><br>For more examples <span class="hljs-keyword">and</span> ideas, visit:<br> <span class="hljs-keyword">https</span>://docs.docker.com/<span class="hljs-built_in">get</span>-started/<br></code></pre></td></tr></table></figure>
-<p>若能正常输出以上信息，则说明安装成功。</p>
+                <h1 id="配置Docker镜像源加速"><a href="#配置Docker镜像源加速" class="headerlink" title="配置Docker镜像源加速"></a>配置Docker镜像源加速</h1><p>因为不可抗因素，在国内Docker从仓库上pull镜像下来比较麻烦。<br>这里提供一个解决该问题的方法，配置镜像源加速。</p>
+<p>可用系统：Ubuntu、Debian、CentOS<br>目前主流 Linux 发行版均已使用 systemd 进行服务管理，这里介绍如何在使用 systemd 的 Linux 发行版中配置镜像加速器。</p>
+<p>请首先执行以下命令，查看是否在 docker.service 文件中配置过镜像地址。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-variable">$</span> systemctl <span class="hljs-built_in">cat</span> docker | grep <span class="hljs-string">&#x27;\-\-registry\-mirror&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>如果该命令有输出，那么请执行 $ systemctl cat docker 查看 ExecStart&#x3D; 出现的位置，修改对应的文件内容去掉 –registry-mirror 参数及其值，并按接下来的步骤进行配置。<br>如果以上命令没有任何输出，那么就可以在 &#x2F;etc&#x2F;docker&#x2F;daemon.json 中写入如下内容（如果文件不存在请新建该文件）：</p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs prolog">&#123;<br>  <span class="hljs-string">&quot;registry-mirrors&quot;</span>: [<br>    <span class="hljs-string">&quot;https://hub-mirror.c.163.com&quot;</span>,<br>    <span class="hljs-string">&quot;https://mirror.baidubce.com&quot;</span><br>  ]<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>注意，一定要保证该文件符合 json 规范，否则 Docker 将不能启动。</p>
+<p>阿里镜像加速器<br><a target="_blank" rel="noopener" href="https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors?spm=a2c6h.12873639.article-detail.16.21cc12deEEPYCT">https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors?spm=a2c6h.12873639.article-detail.16.21cc12deEEPYCT</a></p>
 
                 
               </div>
@@ -369,8 +357,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Docker学习记录_2</div>
-      <div>http://example.com/2024/08/15/Docker学习记录-2/</div>
+      <div>Docker学习记录_2_补充</div>
+      <div>http://example.com/2024/08/15/Docker学习记录-2-补充/</div>
     </div>
     <div class="license-meta">
       
@@ -414,9 +402,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/08/15/Docker%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-2-%E8%A1%A5%E5%85%85/" title="Docker学习记录_2_补充">
+                      <a href="/2024/08/15/Docker%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-3/" title="Docker学习记录_3">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Docker学习记录_2_补充</span>
+                        <span class="hidden-mobile">Docker学习记录_3</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -424,8 +412,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/08/12/Docker%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-1/" title="Docker学习记录_1">
-                        <span class="hidden-mobile">Docker学习记录_1</span>
+                      <a href="/2024/08/15/Docker%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-2/" title="Docker学习记录_2">
+                        <span class="hidden-mobile">Docker学习记录_2</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
