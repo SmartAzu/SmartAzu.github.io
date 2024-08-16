@@ -27,7 +27,7 @@
 <meta property="og:description" content="前言对SRE感兴趣是因为我的实习工作，工作中内部文档给我所带来的技术视野提升让我意识到不能止步于传统的网络技术，技术跟随时代一起前进，我也不能被落下。 SRE这里就不讲SRE的概念了，感兴趣的可以自己去搜集资料，SRE是devops这个概念的前身。 为什么选择这本书？Google作为一家为全球提供网络服务的公司，其网络所承载的数据量极大，在技术领域一直处在世界领先位置，跟着领头羊走准没错。不过该书">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-08-16T07:21:01.000Z">
-<meta property="article:modified_time" content="2024-08-16T09:41:07.973Z">
+<meta property="article:modified_time" content="2024-08-16T16:42:54.247Z">
 <meta property="article:author" content="Azu">
 <meta property="article:tag" content="基础IT架构">
 <meta property="article:tag" content="SRE">
@@ -238,7 +238,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.4k 字
+          3.5k 字
         
       </span>
     
@@ -249,7 +249,7 @@
         
         
         
-          29 分钟
+          30 分钟
         
       </span>
     
@@ -323,6 +323,8 @@
 <h3 id="目标的选择"><a href="#目标的选择" class="headerlink" title="目标的选择"></a>目标的选择</h3><p>设置SLO不是一个单纯的技术活动，设计到产品和业务层面的决策。有些时候需要考虑到各个方面，做出一些放弃的决策。<br>书中给出了一些建议<br><strong>不要仅以目前的状态为基础选择目标</strong><br>要从全局考虑，避免团队被迫长期运维一个过时的系统。<br><strong>保持简单</strong><br>复杂的系统往往会掩盖系统的一些变化，同时也更难以理解。<br><strong>避免绝对值</strong><br>绝对值在系统设计中是不切实际的，即使有一种系统能达到这种要求，所付出的代价也是不可估量的，也比用户所需的高出许多。<br><strong>SLO越少越好</strong><br>SLO必须精准，尽量精简，抛弃不必要的SLO。<br><strong>不要追求完美</strong><br>追求完美往往会陷入一个不可走出的怪圈，可以从一个松散的目标开始，再逐步优化缩紧，这比一开始制定一个困难的计划，并执行容易的多。<br>好的SLO对团队有益，但是一个没有精心调校的SLO会导致浪费。</p>
 <h2 id="控制手段"><a href="#控制手段" class="headerlink" title="控制手段"></a>控制手段</h2><p>通过SLI和SLO在决策系统运维时非常有用<br>举例，某个系统服务在一个时间段内延迟持续上涨，通过SLI及SLO判断，进行操作，解决风险。</p>
 <h3 id="SLO建立用户预期"><a href="#SLO建立用户预期" class="headerlink" title="SLO建立用户预期"></a>SLO建立用户预期</h3><p>通过公布SLO可以使用户得到对系统行为的预期，以理解该服务是否能够满足他们的要求。<br>为了让用户拥有一个正确的预期，书中提出可以考虑以下几种策略：<br><strong>留出一定安全空间</strong><br>留出冗余，响应并解决问题。<br><strong>实际SLO也不要过高</strong><br>避免用户因冗余产生依赖，参考前面Chubby服务。</p>
+<h2 id="协议在实践中的应用"><a href="#协议在实践中的应用" class="headerlink" title="协议在实践中的应用"></a>协议在实践中的应用</h2><p>起草一份SLA通常是业务部门和法务部门共同努力的结果，SRE在这之中作为以一个辅助者的角色来工作。帮助这些部门理解SLA的SLO达标率和困难程度。</p>
+<p><strong>本章完</strong></p>
 
                 
               </div>
