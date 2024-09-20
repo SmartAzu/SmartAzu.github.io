@@ -19,16 +19,16 @@
   <meta name="author" content="Azu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言考虑到本书的内容较多，从本章节开始不再长篇大论，而是尽量精简的表达该章节的意思。（不然每一章要码几k字阅读效率太低了）本章节详细讲述了Google是如何通过发布工程来管理软件的发布过程，介绍以此衍伸出的发布工程师在这一过程中所扮演的关键角色，发布工程是SRE中非常重要的一个环节，其确保软件可以被稳定、快速且可控的从开发环境推向生产环境。 角色：发布工程师发布工程师在软件生命周期中扮演着重要的角">
+    <meta name="description" content="前言本章节讨论了系统设计中简单化的原则，其对系统的灵活性及稳定性的影响。Google的SRE工程师们发现，越简单的系统，其维护和管理成本就越低，同时稳定性会更高，基于此SRE团队将其视为提高系统可靠性的重要策略。 系统的稳定性和灵活性Google的工程师们发现，通过保持系统简单，可以大幅提高其稳定性和易维护性，同时不会牺牲灵活性。虽然一个复杂的系统在短期内能提供大量的功能或灵活性，但是长期维护这样">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SRE-Google运维解密-第八章发布工程">
-<meta property="og:url" content="http://example.com/2024/09/19/SRE-Google%E8%BF%90%E7%BB%B4%E8%A7%A3%E5%AF%86-%E7%AC%AC%E5%85%AB%E7%AB%A0%E5%8F%91%E5%B8%83%E5%B7%A5%E7%A8%8B/index.html">
+<meta property="og:title" content="SRE-Google运维解密-第九章简单化">
+<meta property="og:url" content="http://example.com/2024/09/20/SRE-Google%E8%BF%90%E7%BB%B4%E8%A7%A3%E5%AF%86-%E7%AC%AC%E4%B9%9D%E7%AB%A0%E7%AE%80%E5%8D%95%E5%8C%96/index.html">
 <meta property="og:site_name" content="Azu blog">
-<meta property="og:description" content="前言考虑到本书的内容较多，从本章节开始不再长篇大论，而是尽量精简的表达该章节的意思。（不然每一章要码几k字阅读效率太低了）本章节详细讲述了Google是如何通过发布工程来管理软件的发布过程，介绍以此衍伸出的发布工程师在这一过程中所扮演的关键角色，发布工程是SRE中非常重要的一个环节，其确保软件可以被稳定、快速且可控的从开发环境推向生产环境。 角色：发布工程师发布工程师在软件生命周期中扮演着重要的角">
+<meta property="og:description" content="前言本章节讨论了系统设计中简单化的原则，其对系统的灵活性及稳定性的影响。Google的SRE工程师们发现，越简单的系统，其维护和管理成本就越低，同时稳定性会更高，基于此SRE团队将其视为提高系统可靠性的重要策略。 系统的稳定性和灵活性Google的工程师们发现，通过保持系统简单，可以大幅提高其稳定性和易维护性，同时不会牺牲灵活性。虽然一个复杂的系统在短期内能提供大量的功能或灵活性，但是长期维护这样">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/SRE.png">
-<meta property="article:published_time" content="2024-09-19T07:10:22.000Z">
-<meta property="article:modified_time" content="2024-09-20T02:58:41.719Z">
+<meta property="article:published_time" content="2024-09-20T03:08:42.000Z">
+<meta property="article:modified_time" content="2024-09-20T03:32:55.294Z">
 <meta property="article:author" content="Azu">
 <meta property="article:tag" content="基础IT架构">
 <meta property="article:tag" content="SRE">
@@ -38,7 +38,7 @@
   
   
   
-  <title>SRE-Google运维解密-第八章发布工程 - Azu blog</title>
+  <title>SRE-Google运维解密-第九章简单化 - Azu blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -217,7 +217,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="SRE-Google运维解密-第八章发布工程"></span>
+            <span id="subtitle" data-typed-text="SRE-Google运维解密-第九章简单化"></span>
           
         </div>
 
@@ -228,8 +228,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-09-19 15:10" pubdate>
-          2024年9月19日 下午
+        <time datetime="2024-09-20 11:08" pubdate>
+          2024年9月20日 上午
         </time>
       </span>
     
@@ -240,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          1.2k 字
         
       </span>
     
@@ -251,7 +251,7 @@
         
         
         
-          12 分钟
+          10 分钟
         
       </span>
     
@@ -297,24 +297,21 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">SRE-Google运维解密-第八章发布工程</h1>
+            <h1 id="seo-header">SRE-Google运维解密-第九章简单化</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><strong>考虑到本书的内容较多，从本章节开始不再长篇大论，而是尽量精简的表达该章节的意思。（不然每一章要码几k字阅读效率太低了）</strong><br>本章节详细讲述了Google是如何通过发布工程来管理软件的发布过程，介绍以此衍伸出的发布工程师在这一过程中所扮演的关键角色，发布工程是SRE中非常重要的一个环节，其确保软件可以被稳定、快速且可控的从开发环境推向生产环境。</p>
-<h2 id="角色：发布工程师"><a href="#角色：发布工程师" class="headerlink" title="角色：发布工程师"></a>角色：发布工程师</h2><p>发布工程师在软件生命周期中扮演着重要的角色，其主要工作职能包括设计、开发和维护用于发布软件工具和流程。确保这些过程是可重复的、可自动化的且符合团队的需求和质量标准。</p>
-<h3 id="核心职责"><a href="#核心职责" class="headerlink" title="核心职责"></a>核心职责</h3><p>设计并维护发布流程<br>开发自动化工具来支持构建、测试和部署<br>确保发布流程的一致性和可靠性<br>提供发布过程中的技术支持，确保任何问题都能快速得到解决</p>
-<h2 id="哲学：发布工程"><a href="#哲学：发布工程" class="headerlink" title="哲学：发布工程"></a>哲学：发布工程</h2><p>发布工程的核心目标是使过程尽可能简单、高效且可控。为了这个目标，Google的发布工程团队设计了一套系统（自研啊…Rapid系统），使开发者可以通过自服务的方式自行进行发布操作，而不需要依赖于运维团队的手动操作。<br><strong>自服务模型：</strong><br>自服务模型是Google发布工程的一个重要组成部分，通过提供一系列自动化工具和平台，开发团队可以在不依赖SRE团队的情况下，完成从代码提交到生产环境发布的全过程。<br>这种模式不仅提高了发布速度，还减少了发布过程中可能出现的瓶颈。<br><strong>追求速度与可靠性：</strong><br>发布工程师不仅要追求快速的发布速度，还必须确保发布过程的高可靠性。为了平衡这两者，Google使用了高度自动化的工具和流程，来确保系统在发布时不会因为速度而牺牲质量。</p>
-<h2 id="发布流程的各个阶段"><a href="#发布流程的各个阶段" class="headerlink" title="发布流程的各个阶段"></a>发布流程的各个阶段</h2><p>持续构建与部署：</p>
-<p>构建：构建是发布的第一步，发布工程师需要确保代码可以在不同的环境中顺利构建。Google使用自动化构建工具来确保构建的一致性，并通过构建服务器来管理和执行构建任务。</p>
-<p>分支管理：分支管理是发布过程中的重要环节，特别是当多个团队同时开发多个特性时，必须保证分支的稳定性和同步。发布工程师负责管理分支的合并策略，确保新功能和修复能够按计划进入生产环境。</p>
-<p>测试：在发布前，自动化测试是确保代码质量的关键步骤。Google发布工程通过自动化测试框架，涵盖了单元测试、集成测试、性能测试等多种测试方式，确保代码在进入生产环境前能够通过全面的测试。</p>
-<p>打包：打包过程将构建好的代码和资源打包成一个可部署的单位。发布工程师需要确保打包过程能够正确执行，且最终的打包结果是可重复的，并可以直接部署到目标环境中。</p>
-<h2 id="强调策略和流程"><a href="#强调策略和流程" class="headerlink" title="强调策略和流程"></a>强调策略和流程</h2><p>发布工程不仅局限于发布，还强调在发布过程的整体策略和流程，让每个发布环节遵循既定的标准，以免因失误引发系统故障。（更新是导致系统故障的最大原因）<br>策略的作用：<br>策略在发布过程中非常重要。发布工程师需要确保每个步骤都有严格的策略控制，避免不当的操作可能带来的风险。比如，某些高风险功能可能需要通过特定的灰度发布策略，逐步放量给用户。</p>
-<p>持续改进流程：<br>发布流程不是一成不变的。发布工程师会根据团队的需求和项目的变化，持续优化和改进发布流程。这意味着流程会根据实际情况进行调整，以保证效率和质量。</p>
-<h2 id="不仅仅对Google有用"><a href="#不仅仅对Google有用" class="headerlink" title="不仅仅对Google有用"></a>不仅仅对Google有用</h2><p>发布工程并不是等到项目规模庞大时才需要关注的内容，而是应该从一开始就作为项目的一部分来规划。这样可以从最初就减少发布过程中可能遇到的问题，确保项目的可维护性和可扩展性。</p>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>第8章详细讲解了Google如何通过发布工程来确保软件的高效、可靠发布。发布工程师的角色至关重要，他们负责管理从构建、测试到部署的整个过程，并通过自动化工具和策略确保系统的发布流程简洁且高效。这一章强调了发布的自动化、自服务模式的重要性，并且给出了一些在大型组织中如何管理复杂发布流程的实用建议。</p>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本章节讨论了系统设计中简单化的原则，其对系统的灵活性及稳定性的影响。Google的SRE工程师们发现，越简单的系统，其维护和管理成本就越低，同时稳定性会更高，基于此SRE团队将其视为提高系统可靠性的重要策略。</p>
+<h2 id="系统的稳定性和灵活性"><a href="#系统的稳定性和灵活性" class="headerlink" title="系统的稳定性和灵活性"></a>系统的稳定性和灵活性</h2><p>Google的工程师们发现，通过保持系统简单，可以大幅提高其稳定性和易维护性，同时不会牺牲灵活性。虽然一个复杂的系统在短期内能提供大量的功能或灵活性，但是长期维护这样的复杂性会提高系统的故障率，并且问题发生时，排查和修复的难度也会大大增加。</p>
+<h2 id="乏味的美德"><a href="#乏味的美德" class="headerlink" title="乏味的美德"></a>乏味的美德</h2><p>虽然简单且重复的工作非常乏味，但是在计算机系统里，这样简单乏味的工作流程确保了系统的稳定性。复杂的工作流或工具的引入往往会带来不必要的风险，增加系统失控的可能性。<br>简单系统有以下好处：<br>1、降低维护成本：简单的系统更容易被理解和维护，其不需要大量复杂的文档和培训，也不需要依赖特定的人员。<br>2、提高可靠性：简单的系统故障点自然也少，维护起来也更快，问题排查更方便。</p>
+<h2 id="我绝对不放弃我的代码（绝不认输！）"><a href="#我绝对不放弃我的代码（绝不认输！）" class="headerlink" title="我绝对不放弃我的代码（绝不认输！）"></a>我绝对不放弃我的代码（绝不认输！）</h2><p>在大多数技术团队里，开发者会对自己写的代码有一种爸爸对儿子的保护欲，不愿意放弃或重构代码。然而，Google工程师的经验表明这种强烈的代码保护欲可能会妨碍系统的简单化。其强调不要害怕删除和重构代码，如果某些代码过于臃肿，就应该果断删除，重新设计简洁的方案。</p>
+<p><strong>负代码行：本节提出了“负代码行”这个有趣的概念，意即删除不必要的代码或简化代码往往比添加代码更重要。减少代码量不仅能减少潜在的错误，还能提升系统的整体可维护性。</strong></p>
+<h2 id="“负代码行”作为一个指标"><a href="#“负代码行”作为一个指标" class="headerlink" title="“负代码行”作为一个指标"></a>“负代码行”作为一个指标</h2><p>Google的SRE团队通过监控系统中代码的数量变化，鼓励开发者简化代码。删除无用的代码、不必要的复杂逻辑和多余的功能，能够提升系统的稳定性。SRE并不追求代码量的增加，而是追求减少代码中不必要的部分，以使系统更为高效、稳定。（不过删除往往比在屎山上拉屎难得多）</p>
+<h2 id="最小API"><a href="#最小API" class="headerlink" title="最小API"></a>最小API</h2><p>API是系统与外部交互的桥梁，设计一个mini api对于保持系统简单化至关重要。<br>复杂的API会带来以下问题：<br>依赖增加，维护成本加大。<br>难以理解，增加出错概率。<br>灵活性差，产生不确定性概率增加。<br>基于此，Google的工程师们强调最小化API设计，尽可能保持简单与直接，这样做有助于减少错误，还能在后续维护和扩展中保持系统的清晰性。</p>
+<h2 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h2><p>模块化是简单化系统中另一个重要策略，通过“分而治之”的思想理念，将复杂系统以功能为界限，拆分成一个个小且独立的模块，可以让每个模块单独开发、测试和部署。通过这种设计能有效隔离故障，提高系统的可维护性和扩展性，降低其复杂度。</p>
+<h2 id="发布简单化"><a href="#发布简单化" class="headerlink" title="发布简单化"></a>发布简单化</h2><p>作为软件开发的最后一个环节，发布流程强调简单可靠，确保每次发布都是可重复、可追踪且低故障率的。复杂的发布流程往往会引入不确定因素造成系统的不稳定。<br>自动化发布工具：Google使用自动化工具来控制发布的每一步，从代码打包、测试到实际部署。自动化不仅提高了效率，还大大减少了人为错误。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本章节讨论了简单化对于系统设计和运维的重要性，通过简单化减少系统复杂度、简化代码、优化API设计等，实现了提高系统可靠性、可维护性和扩展性。强调了复杂系统所带来的不确定性，增加了系统的维护成本和故障率，而简单系统更稳定可靠易于维护。</p>
 
                 
               </div>
@@ -364,8 +361,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>SRE-Google运维解密-第八章发布工程</div>
-      <div>http://example.com/2024/09/19/SRE-Google运维解密-第八章发布工程/</div>
+      <div>SRE-Google运维解密-第九章简单化</div>
+      <div>http://example.com/2024/09/20/SRE-Google运维解密-第九章简单化/</div>
     </div>
     <div class="license-meta">
       
@@ -377,7 +374,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年9月19日</div>
+          <div>2024年9月20日</div>
         </div>
       
       
@@ -409,18 +406,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/09/20/SRE-Google%E8%BF%90%E7%BB%B4%E8%A7%A3%E5%AF%86-%E7%AC%AC%E4%B9%9D%E7%AB%A0%E7%AE%80%E5%8D%95%E5%8C%96/" title="SRE-Google运维解密-第九章简单化">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">SRE-Google运维解密-第九章简单化</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/09/10/SRE-Google%E8%BF%90%E7%BB%B4%E8%A7%A3%E5%AF%86-%E7%AC%AC%E4%B8%83%E7%AB%A0Google%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%BC%94%E8%BF%9B/" title="SRE-Google运维解密-第七章Google的自动化系统的演进">
-                        <span class="hidden-mobile">SRE-Google运维解密-第七章Google的自动化系统的演进</span>
+                      <a href="/2024/09/19/SRE-Google%E8%BF%90%E7%BB%B4%E8%A7%A3%E5%AF%86-%E7%AC%AC%E5%85%AB%E7%AB%A0%E5%8F%91%E5%B8%83%E5%B7%A5%E7%A8%8B/" title="SRE-Google运维解密-第八章发布工程">
+                        <span class="hidden-mobile">SRE-Google运维解密-第八章发布工程</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
